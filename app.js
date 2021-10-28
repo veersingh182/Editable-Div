@@ -26,6 +26,11 @@ let text;
 if (val==null){
     text = document.createTextNode('click here to edit.')
 }
+
+if (divElem.innerText == null || divElem.innerText == "" || divElem.innerText == " "|| divElem.innerText == "  "|| divElem.innerText == "   "|| divElem.innerText == "    "){
+    text = document.createTextNode('click here to edit.')
+}
+
 else{
     text = document.createTextNode(val);
 }
@@ -37,15 +42,25 @@ divElem.addEventListener('click',()=>{
 
     let html = divElem.innerText;
     let textarea_len = document.getElementsByClassName('textarea').length;
-    if(textarea_len == 0){
+    
+    if(textarea_len == 0 ){
         divElem.innerHTML =  ` <textarea class="textarea form-control"  id="textarea" rows="3">${html}</textarea>`;
     }
     // let html = divElem.innerHtml;
     // console.log(html);
     
+    
     let textarea = document.getElementById('textarea');
     textarea.addEventListener('blur',()=>{
-        divElem.innerHTML = textarea.value;
-        localStorage.setItem('text', textarea.value);        
+
+        //manually setting condition for string only containing spcae and no other char
+        if (textarea.value == null || textarea.value == '' || textarea.value == ' '|| textarea.value == '  '|| textarea.value == '   '|| textarea.value == '    ') {
+            divElem.innerText = 'click here to edit.';
+        }
+        else{
+            divElem.innerHTML = textarea.value;            
+        }
+
+        localStorage.setItem('text', textarea.value);
     });   
 });
